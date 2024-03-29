@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="importmap">
+        {
+          "imports": {
+            "ol/": "https://cdn.jsdelivr.net/npm/ol@v9.1.0/",
+            "rbush": "https://cdn.jsdelivr.net/npm/rbush@3.0.1/+esm",
+            "color-space/": "https://cdn.jsdelivr.net/npm/color-space@2.0.1/",
+            "color-rgba": "https://cdn.jsdelivr.net/npm/color-rgba@3.0.0/+esm",
+            "proj4": "https://cdn.jsdelivr.net/npm/proj4@2.11.0/+esm"
+          }
+        }
+      </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css">
+    <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <title>Quick Start</title>
+    <script type="module" src="main.js"> </script>
+</head>
+
+<body>
+    <div id="map"></div>
+</body>
+
+</html>
