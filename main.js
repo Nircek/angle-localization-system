@@ -8,7 +8,7 @@ import VectorLayer from 'ol/layer/Vector.js';
 import VectorSource from 'ol/source/Vector.js';
 import { transform } from 'ol/proj.js';
 import { register } from 'ol/proj/proj4.js';
-import { circular } from 'ol/geom/Polygon.js';
+import Polygon from 'ol/geom/Polygon.js';
 import Feature from 'ol/Feature.js';
 import proj4 from "proj4";
 
@@ -62,7 +62,7 @@ const objects = [
 ];
 
 function generateCircles(objects) {
-    const arcs = [];
+    const circles = [];
     for (const [i, [_n1, x1, y1, dir1]] of objects.entries()) {
         for (let j = i + 1; j < objects.length; ++j) {
             const [_n2, x2, y2, dir2] = objects[j];
@@ -78,23 +78,21 @@ function generateCircles(objects) {
             const s = angle > 90 ? 1 : -1;
             const x3 = x0 + s * b * ya / a;
             const y3 = y0 - s * b * xa / a;
-            const az1 = (180 * Math.atan2(y1 - y3, x1 - x3) / Math.PI + 360) % 360;
-            const az2 = (180 * Math.atan2(y2 - y3, x2 - x3) / Math.PI + 360) % 360;
-            arcs.push([x3, y3, r, x1, y1, x2, y2, angle, az1, az2]);
+            circles.push([x3, y3, r]);
         }
     }
-    return arcs;
+    return circles;
 }
 
 function showCircles(circles) {
-    for (let [x3, y3, r, ..._] of circles) {
-        const c = new circular(
-            transform([y3, x3], "EPSG:2180", "EPSG:4326"),
-            r, 2 * Math.PI * r
-        ).transform("EPSG:4326", "EPSG:3857");
-        window.c = c;
+    for (let [x, y, r] of circles) {
+        const arr = [...Array(Math.floor(2 * Math.PI * r)).keys(), 0]
+            .map(i => i / r)
+            .map(a => [y + r * Math.sin(a), x + r * Math.cos(a)]);
+        const c = new Polygon([arr]).transform("EPSG:2180", "EPSG:3857");
         source.addFeature(new Feature(c));
     }
 }
 
-showCircles(generateCircles(objects))
+const circles = generateCircles(objects);
+showCircles(circles)
