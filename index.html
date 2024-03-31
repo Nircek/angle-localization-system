@@ -11,7 +11,8 @@
             "rbush": "https://cdn.jsdelivr.net/npm/rbush@3.0.1/+esm",
             "color-space/": "https://cdn.jsdelivr.net/npm/color-space@2.0.1/",
             "color-rgba": "https://cdn.jsdelivr.net/npm/color-rgba@3.0.0/+esm",
-            "proj4": "https://cdn.jsdelivr.net/npm/proj4@2.11.0/+esm"
+            "proj4": "https://cdn.jsdelivr.net/npm/proj4@2.11.0/+esm",
+            "fmin": "https://cdn.jsdelivr.net/npm/fmin@v0.0.2/+esm"
           }
         }
       </script>
@@ -29,13 +30,27 @@
             bottom: 0;
             width: 100%;
         }
+
+        #info {
+            z-index: 1;
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            background: rgba(0, 60, 136, 0.7);
+            color: white;
+            padding: 1em;
+            border: 0;
+        }
     </style>
     <title>Angle Localization System</title>
     <script type="module" src="main.js"> </script>
 </head>
 
 <body>
-    <div id="map"></div>
+    <div id="map">
+        <pre id="info"></pre>
+    </div>
 </body>
 
 </html>
